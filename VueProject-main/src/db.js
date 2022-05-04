@@ -38,7 +38,7 @@ export const deleteAccident = id => {
 export const useLoadAccidents = () => {
     const accidents = ref([])
     const close = accidentCollection.onSnapshot(snapshot => {
-        accidents.value = snapshot.doc.map(doc => ({ id: doc.id, ...doc.data()}))
+        accidents.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data()}))
     })
     onUnmounted(close)
     return accidents

@@ -10,9 +10,16 @@
             <option value="event">Campus Event</option>
         </select>
 
-          <label for="location">Location as cordinates:</label>
+          <label for="location">Longitude:</label>
           <input 
-            v-model="form.location"
+            v-model="form.longitude"
+            class="form-control"
+            type="location"
+            required
+          />
+          <label for="location">Latitude:</label>
+          <input 
+            v-model="form.latitude"
             class="form-control"
             type="location"
             required
@@ -29,12 +36,13 @@ import { createAccident } from '@/db'
 import { reactive } from "vue"
 export default {
     setup() {
-        const form = reactive({location: '', traffic: ''})
+        const form = reactive({latitude: '',longitude: '', traffic: ''})
 
         const onSubmit = async () => {
             await createAccident({ ...form})
             form.traffic = ''
-            form.location = ''
+            form.latitude = ''
+            form.longitude = ''
             
         }
 

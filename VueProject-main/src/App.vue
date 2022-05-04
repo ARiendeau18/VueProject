@@ -6,6 +6,7 @@ import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useGeolocation } from './useGeolocation'
 import { Loader } from '@googlemaps/js-api-loader'
 import AccidentCreate from './components/AccidentCreate.vue'
+import AccidentList from './components/AccidentList.vue'
 
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyDcvZ6ffnMmTk-uGwBi4zs3bmsycYRy4Uw'
@@ -30,6 +31,7 @@ export default {
                 zoom: 7
             });
             clickListener = map.value.addListener("click", ({ latLng: { lat, lng } }) => (otherPos.value = { lat: lat(), lng: lng() }));
+            
         });
         onUnmounted(async () => {
             if (clickListener)
@@ -65,13 +67,8 @@ export default {
             : haversineDistance(currPos.value, otherPos.value));
         return { currPos, otherPos, distance, mapDiv };
     },
-    mounted() {
-    //for google maps autocomplete
-    //components: { GooglePlaces }
-    new google.maps.places.Autocomplete( 
-      document.getElementsById("autocomplete"))
-    },
-    components: { AccidentCreate }
+    
+    components: { AccidentCreate, AccidentList }
 }
 </script>
 
@@ -95,6 +92,7 @@ export default {
       </span>
       <span v-else>Click the map to select a position</span>
     </div>
+     
     <br>
 
     
@@ -104,19 +102,21 @@ export default {
 
     <div style="width: 100%">
       <div  style="width: 20%; height: 80vh; float: left; background: tan">
-        (Direction Management) <br>
-        (Campus Traffic Report) <br>
-        (Parking Deck Info) <br>
-        
         <iframe src="https://parkingavailability.charlotte.edu/" width="auto" height="65%">
         </iframe>
         <AccidentCreate />
+       
         
         
         
-        (Separate page for users to upload traffic details for the campus)
+        
+        
       </div>
-      <div ref="mapDiv" style="width: 80%; height: 80vh" />
+      <div ref="mapDiv" style="width: 80%; height: 80vh">
+          <AccidentList />
+      </div>
+      
+
     </div>
     </div>
     

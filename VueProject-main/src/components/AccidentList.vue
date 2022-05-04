@@ -1,16 +1,17 @@
 <template>
     <div>
         <div class="markers">
-            <google-map>
+            
                 <div v-for="{ id, latitude, longitude, traffic} in accidents" :key="id">
-                    const myLatLng = { lat: {{ latitude }}, lng: {{ longitude }} };
+                
                     new google.maps.Marker({
-                    position: myLatLng,
+                    position: { lat: {{ latitude }}, lng: {{ longitude }} },
                     map,
                     title= {{ traffic }}
-                    });  
+                    });
+                     
                 </div>
-            </google-map>   
+               
             
         </div>
     </div>
@@ -23,9 +24,7 @@ export default {
         const accidents = useLoadAccidents()
         return{accidents, deleteAccident}
     },
-    for(){
-
-    }
+    
     
 }
 </script>
