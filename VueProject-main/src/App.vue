@@ -5,8 +5,8 @@
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useGeolocation } from './useGeolocation'
 import { Loader } from '@googlemaps/js-api-loader'
-
 import AccidentCreate from './components/AccidentCreate.vue'
+
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyDcvZ6ffnMmTk-uGwBi4zs3bmsycYRy4Uw'
 
@@ -65,6 +65,12 @@ export default {
             : haversineDistance(currPos.value, otherPos.value));
         return { currPos, otherPos, distance, mapDiv };
     },
+    mounted() {
+    //for google maps autocomplete
+    //components: { GooglePlaces }
+    new google.maps.places.Autocomplete( 
+      document.getElementsById("autocomplete"))
+    },
     components: { AccidentCreate }
 }
 </script>
@@ -84,32 +90,40 @@ export default {
     <div class="m-auto">
       <h4>Clicked Position</h4>
       <span v-if="otherPos">
-        Latitude: {{ otherPos.lat.toFixed(2) }}, Longitude:
-        {{ otherPos.lng.toFixed(2) }}
+        Latitude: {{ otherPos.lat.toFixed(3) }}, Longitude:
+        {{ otherPos.lng.toFixed(3) }}
       </span>
       <span v-else>Click the map to select a position</span>
-      <br>
-  </div>
-  </div>
-  <div style="width: 100%">
-      <div  style="width: 20%; height: 80vh; float: left; background: tan">
-      <AccidentCreate />
-        
-       
-      <div ref="mapDiv" style="width: 80%; height: 80vh" />
     </div>
-    </div> 
-   
-  </div>
-    
-    
+    <br>
 
     
     
     
-  
+  </div>
+
+    <div style="width: 100%">
+      <div  style="width: 20%; height: 80vh; float: left; background: tan">
+        (Direction Management) <br>
+        (Campus Traffic Report) <br>
+        (Parking Deck Info) <br>
+        
+        <iframe src="https://parkingavailability.charlotte.edu/" width="auto" height="65%">
+        </iframe>
+        <AccidentCreate />
+        
+        
+        
+        (Separate page for users to upload traffic details for the campus)
+      </div>
+      <div ref="mapDiv" style="width: 80%; height: 80vh" />
+    </div>
+    </div>
+    
+
   
   
   
   
 </template>
+

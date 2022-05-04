@@ -10,13 +10,14 @@
             <option value="event">Campus Event</option>
         </select>
 
-          <label for="location">Location:</label>
+          <label for="location">Location as cordinates:</label>
           <input 
             v-model="form.location"
             class="form-control"
             type="location"
             required
           />
+          
 
           <button> Submit </button>
         </form>
